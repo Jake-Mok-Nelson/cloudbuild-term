@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"log"
 
+	"cloud.google.com/go/storage"
 	"github.com/Jake-Mok-Nelson/cloudbuild-term/internal/config"
 	"github.com/Jake-Mok-Nelson/cloudbuild-term/internal/gui"
 	"github.com/jroimartin/gocui"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -17,15 +19,17 @@ func main() {
 	viper.AddConfigPath(".")                        // optionally look for config in the working directory
 	var configuration config.Configuration
 	if err := viper.ReadInConfig(); err != nil {
-		panic(fmt.Errorf("Error reading config file, %s", err))
+		logrus.Warning("Coudldn't read config from $HOME/.cloudbuilder-term, assuming this is the first run and I'll create one")
 	}
 	err := viper.Unmarshal(&configuration)
 	if err != nil {
-		panic(fmt.Errorf("unable to decode into struct, %v", err))
+		panic(fmt.Errorf("Found some config but couldn't unmarshall it: , %v", err))
 	}
 
 	viper.SetDefault("Projects", nil)
 	viper.SetDefault("Theme", map[string]string{"BackgroundColour": "black", "ForgroundColour": "white"})
+
+	client, err := storage.NewClient(ctx)
 
 	g, err := gocui.NewGui(gocui.OutputNormal)
 	if err != nil {
