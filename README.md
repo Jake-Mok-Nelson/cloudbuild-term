@@ -5,7 +5,8 @@ Review Google Cloudbuilds in the terminal
 
 Who wants to use a GUI to track down cloudbuilds when there could be many that are running concurrently across multiple projects?
 
-## Use Cases
+## Planned Features
 
-- Monitoring software builds including the results of each stage, dive into a stage for more information.
-- Monitoring infrastructure plans (terraform) through the use of plugins?
+- View cloudbuilds across one or many projects at once
+- Deep dive into builds or view at a high level
+- Use plugins to validate output, e.g. a Terraform plugin could simplify the build output or give a blast radius score?
