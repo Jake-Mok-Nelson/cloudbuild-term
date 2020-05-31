@@ -64,6 +64,8 @@ func main() {
 		return nil
 	})
 
+	println(g.Cursor)
+
 	if err := gui.Keybindings(g); err != nil {
 		log.Panicln(err)
 	}
