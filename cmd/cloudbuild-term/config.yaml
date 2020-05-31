@@ -1,3 +1,5 @@
 Projects:
-  - Name: test
-  - Name: stuff
+  - Name: simple-name
+    ID: some-complex-proj-name123
+  - Name: other-simple-name
+    ID: some-complex-proj-name555

@@ -1,37 +1,30 @@
-package project
+package projects
 
-import (
-	"context"
+// // List all Google projects we can see with the current credentials
+// func FetchFromGCP() (projects []string, err error) {
 
-	"google.golang.org/api/cloudresourcemanager/v2"
-)
+// 	// Get all projects
+// 	ctx := context.Background()
 
-// List all Google projects we can see with the current credentials
-func ListAll() (projects []Project, err error) {
+// 	cloudresourcemanagerService, err := cloudresourcemanager.NewService(ctx)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	var projectsFromApiCall []string
+// 	req := cloudresourcemanagerService.Projects.List()
+// 	if err := req.Pages(ctx, func(page *cloudresourcemanager.ListProjectsResponse) error {
+// 		for _, project := range page.Projects {
+// 			projectsFromApiCall = append(projectsFromApiCall, project.ProjectId)
+// 		}
+// 		return nil
+// 	}); err != nil {
+// 		return nil, err
+// 	}
 
-	// Get all projects
+// 	// Convert the google projects into a simple slice of strings
+// 	return projectsFromApiCall, nil
+// }
 
-	ctx := context.Background()
-	cloudresourcemanagerService, err := cloudresourcemanager.NewService(ctx)
-
-	// Validate the list
-	if err != nil {
-		return err
-	}
-
-	// Convert google API call results into a slice of type Project
-	allProjects, err := generateProjectsSlice()
-	if err != nil {
-		return nil, err
-	}
-}
-
-// Take the results from the google call and turn them into a slice of Project
-func generateProjectsSlice() {
-
-}
-
-// Project -  A Google project
 type Project struct {
 	Name string
 	ID   string
