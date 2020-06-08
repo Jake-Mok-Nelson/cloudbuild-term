@@ -92,11 +92,11 @@ func Layout(g *gocui.Gui) error {
 		v.Editable = true
 		v.Wrap = true
 		fmt.Fprintln(v, `
-   ___ _                 _ _           _ _     _   _____
-  / __\ | ___  _   _  __| | |__  _   _(_) | __| | /__   \___ _ __ _ __ ___
- / /  | |/ _ \| | | |/ _' | '_ \| | | | | |/ _' |   / /\/ _ \ '__| '_ ' _ \
-/ /___| | (_) | |_| | (_| | |_) | |_| | | | (_| |  / / |  __/ |  | | | | | |
-\____/|_|\___/ \__,_|\__,_|_.__/ \__,_|_|_|\__,_|  \/   \___|_|  |_| |_| |_|
+     ___ _                 _ _           _ _     _   _____
+    / __\ | ___  _   _  __| | |__  _   _(_) | __| | /__   \___ _ __ _ __ ___
+  / /  | |/ _ \| | | |/ _' | '_ \| | | | | |/ _' |   / /\/ _ \ '__| '_ ' _ \
+  / /___| | (_) | |_| | (_| | |_) | |_| | | | (_| |  / / |  __/ |  | | | | | |
+  \____/|_|\___/ \__,_|\__,_|_.__/ \__,_|_|_|\__,_|  \/   \___|_|  |_| |_| |_|
   `)
 
 		fmt.Fprint(v, "\n\n")
@@ -117,9 +117,12 @@ func Layout(g *gocui.Gui) error {
 
 		p, err := projects.FetchProjects()
 		if err != nil {
-			fmt.Errorf("unable to retrieve projects from Google: %v", err)
+			//fmt.Errorf("unable to retrieve projects from Google: %v", err)
+			panic(err)
 		}
-
+		for _, projectID := range p {
+			fmt.Fprintln(v, projectID)
+		}
 		//fmt.Fprintln(v, "SomeGCPProject")
 		//fmt.Fprintln(v, "AnotherGCPproject")
 		//fmt.Fprintln(v, "YetAnotherProject")

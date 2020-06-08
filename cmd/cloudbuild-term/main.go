@@ -1,13 +1,14 @@
 package main
 
 import (
-  "fmt"
-  "log"
+	"fmt"
+	"log"
 
-  "github.com/Jake-Mok-Nelson/cloudbuild-term/internal/config"
-  "github.com/Jake-Mok-Nelson/cloudbuild-term/internal/gui"
-  "github.com/jroimartin/gocui"
-  "github.com/spf13/viper"
+	"github.com/Jake-Mok-Nelson/cloudbuild-term/internal/config"
+	"github.com/Jake-Mok-Nelson/cloudbuild-term/internal/gui"
+	"github.com/asaskevich/EventBus"
+	"github.com/jroimartin/gocui"
+	"github.com/spf13/viper"
 )
 
 func main() {
@@ -25,8 +26,13 @@ func main() {
 	viper.SetDefault("Projects", nil)
 	viper.SetDefault("Theme", map[string]string{"BackgroundColour": "black", "ForgroundColour": "white"})
 
-	//bus := EventBus.New()
+	bus := EventBus.New()
+	initGUI(bus)
 
+}
+
+// Start the GUI
+func initGUI(EventBus.Bus) {
 	g, err := gocui.NewGui(gocui.OutputNormal)
 	if err != nil {
 		log.Panicln(err)
@@ -36,7 +42,6 @@ func main() {
 	g.Cursor = true
 
 	g.SetManagerFunc(gui.Layout)
-
 
 	if err := gui.Keybindings(g); err != nil {
 		log.Panicln(err)

@@ -7,8 +7,8 @@ import (
 	"google.golang.org/api/option"
 )
 
-/// Fetch all Google projects we can see with the current credentials
-func FetchProjects() (reply interface{}, err error) {
+// FetchProjects - Fetch all Google projects we can see with the current credentials
+func FetchProjects() (allProjects []string, err error) {
 
 	ctx := context.Background()
 	cloudresourcemanagerService, err := cloudresourcemanager.NewService(ctx, option.WithScopes(cloudresourcemanager.CloudPlatformReadOnlyScope))
@@ -20,16 +20,11 @@ func FetchProjects() (reply interface{}, err error) {
 		return nil, err
 	}
 
-	print(projectsList.Projects)
-	projectSlice := Projects{}
+	projSlice := make([]string, len(projectsList.Projects))
 
-	for _, project := range projectsList.Projects {
-		p := ProjectItem{
-			ID:   project.ProjectId,
-			Name: project.Name,
-		}
-		projectSlice.AddItem(p)
+	for i, project := range projectsList.Projects {
+		projSlice[i] = project.ProjectId
 	}
 
-	return projectSlice, err
+	return projSlice, err
 }
