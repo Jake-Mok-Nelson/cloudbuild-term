@@ -3,6 +3,7 @@ package gui
 import (
 	"fmt"
 
+	"github.com/Jake-Mok-Nelson/cloudbuild-term/internal/projects"
 	"github.com/jroimartin/gocui"
 )
 
@@ -44,6 +45,18 @@ func CursorUp(g *gocui.Gui, v *gocui.View) error {
 func Quit(g *gocui.Gui, v *gocui.View) error {
 	return gocui.ErrQuit
 }
+func SelectProject(g *gocui.Gui, v *gocui.View) error {
+	if v != nil {
+		_, oy := v.Cursor()
+		lineText, err := v.Line(oy)
+		if err != nil {
+			return err
+		}
+		println(lineText)
+
+	}
+	return nil
+}
 
 func Keybindings(g *gocui.Gui) error {
 	if err := g.SetKeybinding("projects", gocui.KeyCtrlSpace, gocui.ModNone, NextView); err != nil {
@@ -61,6 +74,10 @@ func Keybindings(g *gocui.Gui) error {
 	if err := g.SetKeybinding("", gocui.KeyCtrlC, gocui.ModNone, Quit); err != nil {
 		return err
 	}
+	if err := g.SetKeybinding("projects", gocui.KeyEnter, gocui.ModNone, SelectProject); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -98,10 +115,14 @@ func Layout(g *gocui.Gui) error {
 		v.SelBgColor = gocui.ColorGreen
 		v.SelFgColor = gocui.ColorBlack
 
-		fmt.Fprintln(v, "All")
-		fmt.Fprintln(v, "SomeGCPProject")
-		fmt.Fprintln(v, "AnotherGCPproject")
-		fmt.Fprintln(v, "YetAnotherProject")
+		p, err := projects.FetchProjects()
+		if err != nil {
+			fmt.Errorf("unable to retrieve projects from Google: %v", err)
+		}
+
+		//fmt.Fprintln(v, "SomeGCPProject")
+		//fmt.Fprintln(v, "AnotherGCPproject")
+		//fmt.Fprintln(v, "YetAnotherProject")
 
 	}
 
