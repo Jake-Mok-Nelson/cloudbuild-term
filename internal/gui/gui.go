@@ -81,53 +81,23 @@ func updateBuildsListView(g *gocui.Gui, project string) error {
 	// Update the builds view with the output of the builds command
 	view.Clear()
 
-	// Creating the maps for JSON
-	m := map[string]interface{}{}
+	// // Creating the maps for JSON
+	// m := map[string]interface{}{}
+	b := builds.BuildOverview{}
 
-	// Parsing/Unmarshalling JSON encoding/json
-	err = json.Unmarshal([]byte(buildsData), &m)
+	// // Parsing/Unmarshalling JSON encoding/json
+	err = json.Unmarshal([]byte(buildsData), &b)
 	if err != nil {
 		return err
 	}
 
-	parseMap(m, view)
-	if err != nil {
-		return err
+	for _, val := range b.Builds {
+		fmt.Printf(val.BuildTriggerID, view)
+
 	}
+
+	view.Write(buildsData)
+	// TODO: Print out the list of builds here
 
 	return nil
-}
-
-func parseMap(aMap map[string]interface{}, v *gocui.View) {
-	for key, val := range aMap {
-		switch concreteVal := val.(type) {
-		case map[string]interface{}:
-			//fmt.Println(key)
-			fmt.Printf(key, v)
-
-			parseMap(val.(map[string]interface{}), v)
-		case []interface{}:
-			//fmt.Println(key)
-			fmt.Printf(key, v)
-			parseArray(val.([]interface{}), v)
-		default:
-			fmt.Println(key, ":", concreteVal)
-		}
-	}
-}
-
-func parseArray(anArray []interface{}, v *gocui.View) {
-	for i, val := range anArray {
-		switch concreteVal := val.(type) {
-		case map[string]interface{}:
-			fmt.Println("Index:", i)
-			parseMap(val.(map[string]interface{}), v)
-		case []interface{}:
-			fmt.Println("Index:", i)
-			parseArray(val.([]interface{}), v)
-		default:
-			fmt.Println("Index", i, ":", concreteVal)
-
-		}
-	}
 }
