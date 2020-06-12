@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/Jake-Mok-Nelson/cloudbuild-term/internal/config"
 	"github.com/Jake-Mok-Nelson/cloudbuild-term/internal/gui"
 	"github.com/asaskevich/EventBus"
-	"github.com/jroimartin/gocui"
 	"github.com/spf13/viper"
 )
 
@@ -27,27 +25,8 @@ func main() {
 	viper.SetDefault("Theme", map[string]string{"BackgroundColour": "black", "ForgroundColour": "white"})
 
 	bus := EventBus.New()
-	initGUI(bus)
 
-}
+	// Start the GUI
+	gui.InitGUI(bus)
 
-// Start the GUI
-func initGUI(EventBus.Bus) {
-	g, err := gocui.NewGui(gocui.OutputNormal)
-	if err != nil {
-		log.Panicln(err)
-	}
-	defer g.Close()
-
-	g.Cursor = true
-
-	g.SetManagerFunc(gui.Layout)
-
-	if err := gui.Keybindings(g); err != nil {
-		log.Panicln(err)
-	}
-
-	if err := g.MainLoop(); err != nil && err != gocui.ErrQuit {
-		log.Panicln(err)
-	}
 }
