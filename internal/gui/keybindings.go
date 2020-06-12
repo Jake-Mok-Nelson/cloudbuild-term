@@ -1,6 +1,6 @@
 package gui
 
-import "github.com/jroimartin/gocui"
+import "github.com/awesome-gocui/gocui"
 
 // Keybindings - Keybindings for views in our layout
 func Keybindings(g *gocui.Gui) error {
@@ -13,7 +13,7 @@ func Keybindings(g *gocui.Gui) error {
 
 	// Keybindings for the projects view
 
-	if err := g.SetKeybinding("projects", gocui.KeyCtrlSpace, gocui.ModNone, nextView); err != nil {
+	if err := g.SetKeybinding("projects", gocui.KeyTab, gocui.ModNone, nextView); err != nil {
 		return err
 	}
 
@@ -31,7 +31,15 @@ func Keybindings(g *gocui.Gui) error {
 
 	// Keybindings for the builds view
 
-	if err := g.SetKeybinding("builds", gocui.KeyCtrlSpace, gocui.ModNone, nextView); err != nil {
+	if err := g.SetKeybinding("builds", gocui.KeyTab, gocui.ModNone, nextView); err != nil {
+		return err
+	}
+
+	if err := g.SetKeybinding("builds", gocui.KeyArrowDown, gocui.ModNone, cursorDown); err != nil {
+		return err
+	}
+
+	if err := g.SetKeybinding("builds", gocui.KeyArrowUp, gocui.ModNone, cursorUp); err != nil {
 		return err
 	}
 

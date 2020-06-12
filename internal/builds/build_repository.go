@@ -23,7 +23,6 @@ func FetchBuilds(projectID string, limit int64) (builds []byte, err error) {
 			"builds/finishTime",
 			"builds/id",
 			"builds/projectId",
-			"builds/results",
 			"builds/source",
 			"builds/status",
 			"builds/queueTtl",

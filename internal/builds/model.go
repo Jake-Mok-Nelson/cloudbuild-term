@@ -2,6 +2,7 @@ package builds
 
 import "time"
 
+// BuildOverview - A high level view of a list of builds, for listing builds with minimal details
 type BuildOverview struct {
 	Builds []struct {
 		BuildTriggerID string    `json:"buildTriggerId"`
@@ -10,11 +11,7 @@ type BuildOverview struct {
 		LogsBucket     string    `json:"logsBucket"`
 		ProjectID      string    `json:"projectId"`
 		QueueTTL       string    `json:"queueTtl"`
-		Results        struct {
-			BuildStepImages  []string `json:"buildStepImages"`
-			BuildStepOutputs []string `json:"buildStepOutputs"`
-		} `json:"results"`
-		Source struct {
+		Source         struct {
 			RepoSource struct {
 				CommitSha string `json:"commitSha"`
 				ProjectID string `json:"projectId"`
