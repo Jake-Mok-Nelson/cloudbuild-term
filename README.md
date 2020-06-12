@@ -1,12 +1,14 @@
 # cloudbuild-term
 Review Google Cloudbuilds in the terminal
 
+**Warning** This is an MVP as far as tools go. There's not much in the way of testing or mocking and it needs work. Use at your own risk.
+
 ## Why?
 
 Who wants to use a GUI to track down cloudbuilds when there could be many that are running concurrently across multiple projects?
 
-## Planned Features
+## How?
 
-- View cloudbuilds across one or many projects at once
-- Deep dive into builds or view at a high level
-- Use plugins to validate output, e.g. a Terraform plugin could simplify the build output or give a blast radius score?
+Ensure you are authorised to use Google APS in the terminal with `gcloud auth login` and `gcloud auth application-default login`
+
+It is allowing application-default credentials to use your login that provides access to the application.

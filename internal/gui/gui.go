@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/Jake-Mok-Nelson/cloudbuild-term/internal/builds"
-	"github.com/jroimartin/gocui"
+	"github.com/awesome-gocui/gocui"
 )
 
 func nextView(g *gocui.Gui, v *gocui.View) error {
@@ -73,7 +73,7 @@ func updateBuildsListView(g *gocui.Gui, project string) error {
 	}
 
 	// Fetch a list of builds for a given projectId
-	buildsData, err := builds.FetchBuilds(project, 2)
+	buildsData, err := builds.FetchBuilds(project, 10)
 	if err != nil {
 		return err
 	}
@@ -81,53 +81,25 @@ func updateBuildsListView(g *gocui.Gui, project string) error {
 	// Update the builds view with the output of the builds command
 	view.Clear()
 
-	// Creating the maps for JSON
-	m := map[string]interface{}{}
+	// // Creating the maps for JSON
+	// m := map[string]interface{}{}
+	b := builds.BuildOverview{}
 
-	// Parsing/Unmarshalling JSON encoding/json
-	err = json.Unmarshal([]byte(buildsData), &m)
+	// // Parsing/Unmarshalling JSON encoding/json
+	err = json.Unmarshal([]byte(buildsData), &b)
 	if err != nil {
 		return err
 	}
 
-	parseMap(m, view)
-	if err != nil {
-		return err
+	for _, val := range b.Builds {
+
+		fmt.Fprintln(view,
+			"Source: "+val.Source.RepoSource.RepoName+" Status: "+val.Status+" Commit: "+val.Source.RepoSource.CommitSha+" Start: "+val.StartTime.Local().String()+" Finish: "+val.FinishTime.Local().String(),
+		)
+
 	}
+
+	// TODO: Print out the list of builds here
 
 	return nil
-}
-
-func parseMap(aMap map[string]interface{}, v *gocui.View) {
-	for key, val := range aMap {
-		switch concreteVal := val.(type) {
-		case map[string]interface{}:
-			//fmt.Println(key)
-			fmt.Printf(key, v)
-
-			parseMap(val.(map[string]interface{}), v)
-		case []interface{}:
-			//fmt.Println(key)
-			fmt.Printf(key, v)
-			parseArray(val.([]interface{}), v)
-		default:
-			fmt.Println(key, ":", concreteVal)
-		}
-	}
-}
-
-func parseArray(anArray []interface{}, v *gocui.View) {
-	for i, val := range anArray {
-		switch concreteVal := val.(type) {
-		case map[string]interface{}:
-			fmt.Println("Index:", i)
-			parseMap(val.(map[string]interface{}), v)
-		case []interface{}:
-			fmt.Println("Index:", i)
-			parseArray(val.([]interface{}), v)
-		default:
-			fmt.Println("Index", i, ":", concreteVal)
-
-		}
-	}
 }

@@ -4,12 +4,12 @@ import (
 	"log"
 
 	"github.com/asaskevich/EventBus"
-	"github.com/jroimartin/gocui"
+	"github.com/awesome-gocui/gocui"
 )
 
 // InitGUI - Initialise the gui
 func InitGUI(bus EventBus.Bus) {
-	g, err := gocui.NewGui(gocui.OutputNormal)
+	g, err := gocui.NewGui(gocui.OutputNormal, false)
 	if err != nil {
 		log.Panicln(err)
 	}

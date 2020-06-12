@@ -15,7 +15,22 @@ func FetchBuilds(projectID string, limit int64) (builds []byte, err error) {
 	}
 
 	// Get builds for a given project
-	buildsList, err := cloudbuildService.Projects.Builds.List(projectID).PageSize(limit).Do()
+	buildsList, err := cloudbuildService.Projects.Builds.List(projectID).
+		Fields(
+			"builds/buildTriggerId",
+			"builds/logsBucket",
+			"builds/startTime",
+			"builds/finishTime",
+			"builds/id",
+			"builds/projectId",
+			"builds/source",
+			"builds/status",
+			"builds/queueTtl",
+			"builds/statusDetail",
+			"builds/tags").
+		PageSize(limit).
+		Do()
+
 	if err != nil {
 		return nil, err
 	}
