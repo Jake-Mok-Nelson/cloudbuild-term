@@ -1,5 +1,5 @@
 ---
-name: Feature template
+name: Feature request
 about: Template for a new feature or enhancement
 
 ---
