@@ -9,6 +9,7 @@ about: Template for a new feature or enhancement
 Create CI pipeline to establish best-practices
 
 **Tasks:**
+
   i.e.
   1. Create Github action for Golang CI
   2. Add linting stage
