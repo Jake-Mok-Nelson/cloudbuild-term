@@ -6,17 +6,13 @@ about: Template for a new feature or enhancement
 
 **Goal:**
 
-As a <USER PERSONA> I want <FEATURE> so that I can <PURPOSE of FEATURE>
-i.e.
-
-As DevOps I want Health liveness Probe on the microservice so that the health of the service can be monitored.
-
+Create CI pipeline to establish best-practices
 
 **Tasks:**
   i.e.
-  1.  Add negative use-cases to Unit tests
-  2.  Add Integration tests
-  3.
+  1. Create Github action for Golang CI
+  2. Add linting stage
+  3. Add go-test stage 
 
 
 **Acceptance Criteria:**
@@ -24,5 +20,5 @@ As DevOps I want Health liveness Probe on the microservice so that the health of
   - [ ] [LIST ITEMS]
   i.e.
 
-  - [ ] Negative use-cases for Unit Tests in the "common streaming library"
-  - [ ] Integration tests in the "common streaming library"
+  - [ ] Pipeline must run when a PR is raised
+  - [ ] Pipeline must pass for a PR to be accepted
