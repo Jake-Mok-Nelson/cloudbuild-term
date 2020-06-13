@@ -1,6 +1,6 @@
 ---
-name: User Story Template
-about: Template for basic user story
+name: Feature template
+about: Template for a new feature or enhancement
 
 ---
 
